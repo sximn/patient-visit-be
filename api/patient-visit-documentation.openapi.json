@@ -1,0 +1,400 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "API Endpoint",
+      "url": "/api"
+    }
+  ],
+  "info": {
+    "description": "Patient Visit Management API",
+    "version": "1.0.0",
+    "title": "Patient Visit API"
+  },
+  "tags": [
+    { "name": "patientVisits" },
+    { "name": "patients" },
+    { "name": "doctors" }
+  ],
+  "paths": {
+    "/patient-visits": {
+      "get": {
+        "tags": ["patientVisits"],
+        "summary": "Get all patient visits (admin / filtered)",
+        "operationId": "getPatientVisits",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "patientId",
+            "schema": { "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "doctorId",
+            "schema": { "type": "string" }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": { "$ref": "#/components/schemas/VisitStatus" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of patient visits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PatientVisit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["patientVisits"],
+        "summary": "Create new patient visit",
+        "operationId": "createPatientVisit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientVisitCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created patient visit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientVisit"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/patient-visits/{id}": {
+      "get": {
+        "tags": ["patientVisits"],
+        "summary": "Get patient visit by ID",
+        "operationId": "getPatientVisit",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Patient visit detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientVisit"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["patientVisits"],
+        "summary": "Update patient visit",
+        "operationId": "updatePatientVisit",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientVisitCreateUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated patient visit",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientVisit"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["patientVisits"],
+        "summary": "Delete patient visit",
+        "operationId": "deletePatientVisit",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          }
+        }
+      }
+    },
+
+    "/patients": {
+      "get": {
+        "tags": ["patients"],
+        "summary": "Get all patients",
+        "operationId": "getPatients",
+        "responses": {
+          "200": {
+            "description": "List of patients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/patients/{id}": {
+      "get": {
+        "tags": ["patients"],
+        "summary": "Get patient by ID",
+        "operationId": "getPatient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Patient detail",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/patients/{id}/visits": {
+      "get": {
+        "tags": ["patients"],
+        "summary": "Get visits for a specific patient",
+        "operationId": "getPatientVisitsByPatient",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of visits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PatientVisit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/doctors": {
+      "get": {
+        "tags": ["doctors"],
+        "summary": "Get all doctors",
+        "operationId": "getDoctors",
+        "responses": {
+          "200": {
+            "description": "List of doctors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/doctors/{id}": {
+      "get": {
+        "tags": ["doctors"],
+        "summary": "Get doctor by ID",
+        "operationId": "getDoctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Doctor detail",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/doctors/{id}/visits": {
+      "get": {
+        "tags": ["doctors"],
+        "summary": "Get visits for a specific doctor",
+        "operationId": "getPatientVisitsByDoctor",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of visits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PatientVisit"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "PatientVisit": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "patientId": { "type": "string" },
+          "patientName": { "type": "string" },
+          "doctorId": { "type": "string" },
+          "doctorName": { "type": "string" },
+          "visitDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "anamnesis": { "type": "string" },
+          "findings": { "type": "string" },
+          "conclusion": { "type": "string" },
+          "notes": { "type": "string" },
+          "status": {
+            "$ref": "#/components/schemas/VisitStatus"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+
+      "PatientVisitCreateUpdate": {
+        "type": "object",
+        "required": ["patientId", "doctorId", "visitDate", "status"],
+        "properties": {
+          "patientId": { "type": "string" },
+          "doctorId": { "type": "string" },
+          "visitDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "anamnesis": { "type": "string" },
+          "findings": { "type": "string" },
+          "conclusion": { "type": "string" },
+          "notes": { "type": "string" },
+          "status": {
+            "$ref": "#/components/schemas/VisitStatus"
+          }
+        }
+      },
+
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        }
+      },
+
+      "VisitStatus": {
+        "type": "string",
+        "enum": ["closed", "open", "archived", "deleted"]
+      },
+
+      "Role": {
+        "type": "string",
+        "enum": ["doctor", "patient", "admin"]
+      }
+    }
+  }
+}
