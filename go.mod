@@ -2,10 +2,7 @@ module github.com/sximn/patient-visit-be
 
 go 1.26.2
 
-require (
-	github.com/gin-gonic/gin v1.12.0
-	github.com/sximn/ambulance-webapi v1.0.2
-)
+require github.com/gin-gonic/gin v1.12.0
 
 require (
 	github.com/bytedance/gopkg v0.1.3 // indirect

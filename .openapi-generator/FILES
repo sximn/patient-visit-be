@@ -1,0 +1,10 @@
+internal/patient_visit/README.md
+internal/patient_visit/api_doctors.go
+internal/patient_visit/api_patient_visits.go
+internal/patient_visit/api_patients.go
+internal/patient_visit/model_patient_visit.go
+internal/patient_visit/model_patient_visit_create_update.go
+internal/patient_visit/model_role.go
+internal/patient_visit/model_user.go
+internal/patient_visit/model_visit_status.go
+internal/patient_visit/routers.go

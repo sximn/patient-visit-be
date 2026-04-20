@@ -1,0 +1,51 @@
+version: '3'
+
+env:
+  PATIENT_VISIT_API_ENVIRONMENT: Development
+  PATIENT_VISIT_API_PORT: "8080"
+  PATIENT_VISIT_API_MONGODB_USERNAME: root
+  PATIENT_VISIT_API_MONGODB_PASSWORD: neUhaDnes
+
+vars:
+  COMPOSE_FILE: "{{.ROOT_DIR}}/deployments/docker-compose/compose.yaml"
+
+tasks:
+  default:
+    cmds:
+      - task: start
+
+  start:
+    desc: Start MongoDB, run the service, then tear down MongoDB
+    cmds:
+      - task: mongo-up-detach
+      - defer: {task: mongo-down}
+      - go run {{.ROOT_DIR}}/cmd/visit-api-service
+  
+  test:
+    desc: Run test for the app
+    cmds:
+      - go test -v ./...
+
+  openapi:
+    desc: Generate OpenAPI client using openapi-generator-cli
+    cmds:
+      - docker run --rm -it -v {{.ROOT_DIR}}:/local openapitools/openapi-generator-cli generate -c /local/scripts/generator-cfg.yaml
+
+  mongo:
+    desc: Start MongoDB in the foreground
+    cmds:
+      - docker compose --file {{.COMPOSE_FILE}} up
+
+  docker:
+    cmds:
+      - docker build -t xukus/patient-visit-be:local-build -f {{.ROOT_DIR}}/build/docker/Dockerfile .
+
+  mongo-up-detach:
+    internal: true
+    cmds:
+      - docker compose --file {{.COMPOSE_FILE}} up --detach
+
+  mongo-down:
+    internal: true
+    cmds:
+      - docker compose --file {{.COMPOSE_FILE}} down

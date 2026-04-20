@@ -1,0 +1,8 @@
+generatorName: go-gin-server
+outputDir: /local
+inputSpec: /local/api/patient-visit-documentation.openapi.json
+enablePostProcessFile: true
+additionalProperties:
+  apiPath: internal/patient_visit
+  packageName: patient_visit
+  interfaceOnly: true
