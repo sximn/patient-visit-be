@@ -1,0 +1,20 @@
+[
+  { "id": "d1", "name": "MUDr. Šefko Doktor", "role": "doctor", "email": "sefko@nemocnica.sk" },
+  { "id": "d2", "name": "MUDr. Vedúca Doktorka", "role": "doctor", "email": "veduxa@nemocnica.sk" },
+  { "id": "p1", "name": "Lazar Pacientový", "role": "patient", "email": "lazar@email.sk" },
+  { "id": "p2", "name": "Dedo Vsevedo", "role": "patient", "email": "dedo@email.sk" },
+  { "id": "p3", "name": "Niekto Další", "role": "patient", "email": "niekto@email.sk" },
+  { "id": "a1", "name": "Adminus Adminový", "role": "admin", "email": "admin@nemocnica.sk" },
+  { "id": "u1", "name": "Ján Novák", "role": "patient", "email": "jan.novak@example.com" },
+  { "id": "u2", "name": "Mária Kováčová", "role": "patient", "email": "maria.kovacova@example.com" },
+  { "id": "u3", "name": "Peter Horváth", "role": "patient", "email": "peter.horvath@example.com" },
+  { "id": "u4", "name": "Lucia Bieliková", "role": "patient", "email": "lucia.bielikova@example.com" },
+  { "id": "u5", "name": "Martin Šimek", "role": "patient", "email": "martin.simek@example.com" },
+  { "id": "u6", "name": "Anna Králová", "role": "patient", "email": "anna.kralova@example.com" },
+  { "id": "u7", "name": "Tomáš Varga", "role": "patient", "email": "tomas.varga@example.com" },
+  { "id": "u8", "name": "Zuzana Poláková", "role": "patient", "email": "zuzana.polakova@example.com" },
+  { "id": "u9", "name": "Michal Tóth", "role": "patient", "email": "michal.toth@example.com" },
+  { "id": "u10", "name": "Eva Marková", "role": "patient", "email": "eva.markova@example.com" },
+  { "id": "u11", "name": "Filip Urban", "role": "patient", "email": "filip.urban@example.com" },
+  { "id": "u12", "name": "Barbora Sedláčková", "role": "patient", "email": "barbora.sedlackova@example.com" }
+]
