@@ -36,7 +36,7 @@ RUN CGO_ENABLED=0 GOOS=linux \
       go build \
       -ldflags="-w -s" \
       -installsuffix 'static' \
-      -o ./patient-visit-srv ./cmd/patient-visit-service
+      -o ./patient-visit-srv ./cmd/visit-api-service
 
 ############################################
 FROM scratch
