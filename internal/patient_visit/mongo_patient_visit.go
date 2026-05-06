@@ -7,7 +7,7 @@ type PatientVisitDocument struct {
 	PatientID string `bson:"patientId"`
 	DoctorID  string `bson:"doctorId"`
 
-	VisitDate time.Time `bson:"visitDate"`
+	VisitDate string `bson:"visitDate"`
 
 	Anamnesis  string `bson:"anamnesis"`
 	Findings   string `bson:"findings"`

@@ -9,17 +9,13 @@
 
 package patient_visit
 
-import (
-	"time"
-)
-
 type PatientVisitCreateUpdate struct {
 
 	PatientId string `json:"patientId"`
 
 	DoctorId string `json:"doctorId"`
 
-	VisitDate time.Time `json:"visitDate"`
+	VisitDate string `json:"visitDate"`
 
 	Anamnesis string `json:"anamnesis,omitempty"`
 

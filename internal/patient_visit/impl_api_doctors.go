@@ -77,7 +77,7 @@ func (o implDoctorsAPI) GetPatientVisitsByDoctor(c *gin.Context) {
 		userIdsSet[v.DoctorID] = struct{}{}
 	}
 
-	var userIds []string
+	userIds := make([]string, 0)
 	for id := range userIdsSet {
 		userIds = append(userIds, id)
 	}

@@ -334,7 +334,7 @@
           "doctorName": { "type": "string" },
           "visitDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "anamnesis": { "type": "string" },
           "findings": { "type": "string" },
@@ -362,7 +362,7 @@
           "doctorId": { "type": "string" },
           "visitDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "anamnesis": { "type": "string" },
           "findings": { "type": "string" },

@@ -15,15 +15,17 @@ import (
 
 type PatientsAPI interface {
 
-	// GetPatient Get /api/patients/:id
-	// Get patient by ID
-	GetPatient(c *gin.Context)
 
-	// GetPatientVisitsByPatient Get /api/patients/:id/visits
-	// Get visits for a specific patient
-	GetPatientVisitsByPatient(c *gin.Context)
+    // GetPatient Get /api/patients/:id
+    // Get patient by ID 
+     GetPatient(c *gin.Context)
 
-	// GetPatients Get /api/patients
-	// Get all patients
-	GetPatients(c *gin.Context)
+    // GetPatientVisitsByPatient Get /api/patients/:id/visits
+    // Get visits for a specific patient 
+     GetPatientVisitsByPatient(c *gin.Context)
+
+    // GetPatients Get /api/patients
+    // Get all patients 
+     GetPatients(c *gin.Context)
+
 }

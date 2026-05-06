@@ -25,7 +25,7 @@ type PatientVisit struct {
 
 	DoctorName string `json:"doctorName,omitempty"`
 
-	VisitDate time.Time `json:"visitDate,omitempty"`
+	VisitDate string `json:"visitDate,omitempty"`
 
 	Anamnesis string `json:"anamnesis,omitempty"`
 
