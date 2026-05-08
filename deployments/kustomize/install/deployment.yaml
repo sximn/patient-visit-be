@@ -41,11 +41,11 @@ spec:
               configMapKeyRef:
                 name: sukus-patient-visit-be-config
                 key: database
-          - name: PATIENT_VISIT_API_MONGODB_COLLECTION
-            valueFrom:
-              configMapKeyRef:
-                name: sukus-patient-visit-be-config
-                key: collection
+          # - name: PATIENT_VISIT_API_MONGODB_COLLECTION
+          #   valueFrom:
+          #     configMapKeyRef:
+          #       name: sukus-patient-visit-be-config
+          #       key: collection
           - name: RETRY_CONNECTION_SECONDS
             value: "5"
         resources:
