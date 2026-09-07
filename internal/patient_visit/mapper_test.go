@@ -160,6 +160,20 @@ func TestToVisitDoc_EmptyFields(t *testing.T) {
 	}
 }
 
+func TestToVisitDoc_PreservesAuditTimestamps(t *testing.T) {
+	createdAt := time.Date(2025, time.January, 10, 9, 0, 0, 0, time.UTC)
+	updatedAt := createdAt.Add(24 * time.Hour)
+
+	doc := ToVisitDoc(PatientVisit{
+		CreatedAt: createdAt,
+		UpdatedAt: updatedAt,
+	})
+
+	if !doc.UpdatedAt.Equal(updatedAt) {
+		t.Errorf("UpdatedAt: expected %v, got %v", updatedAt, doc.UpdatedAt)
+	}
+}
+
 // --- ToVisitDTO ---
 
 func TestToVisitDTO(t *testing.T) {
