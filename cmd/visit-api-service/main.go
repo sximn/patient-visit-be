@@ -27,11 +27,13 @@ func main() {
 	engine := gin.New()
 	engine.Use(gin.Recovery())
 	corsMiddleware := cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
+		AllowOriginFunc: func(origin string) bool {
+			return strings.Contains(origin, "fiit.stuba.sk")
+		},
 		AllowMethods:     []string{"GET", "PUT", "POST", "DELETE", "PATCH"},
 		AllowHeaders:     []string{"Origin", "Authorization", "Content-Type"},
 		ExposeHeaders:    []string{""},
-		AllowCredentials: false,
+		AllowCredentials: true,
 		MaxAge:           12 * time.Hour,
 	})
 	engine.Use(corsMiddleware)
