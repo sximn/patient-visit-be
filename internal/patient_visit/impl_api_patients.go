@@ -2,6 +2,7 @@ package patient_visit
 
 import (
 	"net/http"
+	"sort"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sximn/patient-visit-be/internal/db_service"
@@ -9,6 +10,11 @@ import (
 )
 
 type implPatientsAPI struct {
+}
+
+type patientActivity struct {
+	patient    UserDocument
+	visitCount int
 }
 
 func NewPatientsApi() PatientsAPI {
@@ -26,9 +32,29 @@ func (o implPatientsAPI) GetPatients(c *gin.Context) {
 		return
 	}
 
-	result := make([]User, 0)
-	for _, doc := range patients {
-		result = append(result, ToUserDTO(doc))
+	activity := make([]patientActivity, 0, len(patients))
+	for _, patient := range patients {
+		visits, err := s.Visits.FindMany(c, bson.M{
+			"patientId": patient.ID,
+		})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err.Error())
+			return
+		}
+
+		activity = append(activity, patientActivity{
+			patient:    patient,
+			visitCount: len(visits),
+		})
+	}
+
+	sort.SliceStable(activity, func(i, j int) bool {
+		return activity[i].visitCount > activity[j].visitCount
+	})
+
+	result := make([]User, 0, len(activity))
+	for _, entry := range activity {
+		result = append(result, ToUserDTO(entry.patient))
 	}
 
 	c.JSON(http.StatusOK, result)
