@@ -16,11 +16,17 @@ func NewPatientVisitsApi() PatientVisitsAPI {
 	return &implPatientVisitsAPI{}
 }
 
-func buildVisitDTOs(visits []PatientVisitDocument, users []UserDocument) []PatientVisit {
-	userMap := make(map[string]UserDocument)
-	for _, u := range users {
-		userMap[u.ID] = u
+func indexUsers(users []UserDocument) map[string]UserDocument {
+	result := make(map[string]UserDocument, len(users))
+	for _, user := range users {
+		result[user.ID] = user
 	}
+
+	return result
+}
+
+func buildVisitDTOs(visits []PatientVisitDocument, users []UserDocument) []PatientVisit {
+	userMap := indexUsers(users)
 
 	result := make([]PatientVisit, 0)
 	for _, v := range visits {
@@ -87,10 +93,7 @@ func (o implPatientVisitsAPI) GetPatientVisit(c *gin.Context) {
 		return
 	}
 
-	userMap := make(map[string]UserDocument)
-	for _, u := range users {
-		userMap[u.ID] = u
-	}
+	userMap := indexUsers(users)
 
 	dto := ToVisitDTO(
 		visit,
@@ -151,10 +154,7 @@ func (o implPatientVisitsAPI) UpdatePatientVisit(c *gin.Context) {
 		"id": bson.M{"$in": []string{existing.PatientID, existing.DoctorID}},
 	})
 
-	userMap := make(map[string]UserDocument)
-	for _, u := range users {
-		userMap[u.ID] = u
-	}
+	userMap := indexUsers(users)
 
 	dto := ToVisitDTO(existing, userMap[existing.PatientID], userMap[existing.DoctorID])
 
@@ -196,10 +196,7 @@ func (o implPatientVisitsAPI) CreatePatientVisit(c *gin.Context) {
 		"id": bson.M{"$in": []string{doc.PatientID, doc.DoctorID}},
 	})
 
-	userMap := make(map[string]UserDocument)
-	for _, u := range users {
-		userMap[u.ID] = u
-	}
+	userMap := indexUsers(users)
 
 	dto := ToVisitDTO(doc, userMap[doc.PatientID], userMap[doc.DoctorID])
 
