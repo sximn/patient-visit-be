@@ -2,6 +2,7 @@ package patient_visit
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -41,6 +42,23 @@ func (o implPatientVisitsAPI) GetPatientVisits(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
+	}
+
+	patientQuery := strings.ToLower(strings.TrimSpace(c.Query("patient")))
+	if patientQuery != "" {
+		filteredVisits := make([]PatientVisitDocument, 0, len(visits))
+		for _, visit := range visits {
+			patient, err := s.Users.FindDocument(c, visit.PatientID)
+			if err != nil {
+				c.JSON(http.StatusInternalServerError, err.Error())
+				return
+			}
+
+			if strings.Contains(strings.ToLower(patient.Name), patientQuery) {
+				filteredVisits = append(filteredVisits, visit)
+			}
+		}
+		visits = filteredVisits
 	}
 
 	// collect user IDs
