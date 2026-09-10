@@ -2,6 +2,7 @@ package patient_visit
 
 import (
 	"net/http"
+	"sort"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -42,6 +43,10 @@ func (o implPatientVisitsAPI) GetPatientVisits(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
+
+	sort.SliceStable(visits, func(i, j int) bool {
+		return visits[i].VisitDate < visits[j].VisitDate
+	})
 
 	// collect user IDs
 	userIdsSet := make(map[string]struct{})
