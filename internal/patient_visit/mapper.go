@@ -1,5 +1,7 @@
 package patient_visit
 
+import "strings"
+
 func ToUserDoc(dto User) UserDocument {
 	return UserDocument{
 		ID:    dto.Id,
@@ -27,10 +29,10 @@ func ToVisitDoc(dto PatientVisit) PatientVisitDocument {
 		Anamnesis:  dto.Anamnesis,
 		Findings:   dto.Findings,
 		Conclusion: dto.Conclusion,
-		Notes:      dto.Notes,
+		Notes:      strings.TrimSpace(dto.Notes),
 		Status:     string(dto.Status),
 		CreatedAt:  dto.CreatedAt,
-		UpdatedAt:  dto.UpdatedAt,
+		UpdatedAt:  dto.CreatedAt,
 	}
 }
 
